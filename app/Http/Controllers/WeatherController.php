@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-
 class WeatherController extends Controller
 {
     public function index()
     {
-        $json = Storage::get('weather.json');
+        // Read JSON directly from disk
+        $json = file_get_contents(storage_path('app/weather.json'));
         $weatherData = json_decode($json, true);
+
+        // Defensive check to prevent null in Blade
+        if (!is_array($weatherData)) {
+            $weatherData = [];  // Fallback to empty array
+        }
+
         return view('weather.index', ['weather' => $weatherData]);
     }
 }

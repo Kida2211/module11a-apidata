@@ -1,22 +1,57 @@
-<h1>Weekly Weather Forecast</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Forecast</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ccc;
+    }
+    th {
+      background-color: #ecf0f1;
+    }
+    tr.rainy {
+      background-color: #d6eaf8;
+    }
+  </style>
+</head>
+<body>
+  <h1>Weekly Weather Forecast</h1>
 
-<table style="border: 1px solid #ccc; border-collapse: collapse; width: 100%;" cellpadding="10">
-  <thead>
-    <tr style="background-color: #ecf0f1;">
-      <th>Day</th>
-      <th>High</th>
-      <th>Low</th>
-      <th>Condition</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach ($weather as $day)
-      <tr @if($day['condition'] === 'Rain') style="background-color: #d6eaf8;" @endif>
-        <td>{{ $day['day'] }}</td>
-        <td>{{ $day['high'] }}°F</td>
-        <td>{{ $day['low'] }}°F</td>
-        <td>{{ $day['condition'] }}</td>
+  <table>
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>High</th>
+        <th>Low</th>
+        <th>Condition</th>
       </tr>
-    @endforeach
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      @forelse ($weather as $day)
+        <tr class="{{ $day['condition'] === 'Rain' ? 'rainy' : '' }}">
+          <td>{{ $day['day'] }}</td>
+          <td>{{ $day['high'] }}°F</td>
+          <td>{{ $day['low'] }}°F</td>
+          <td>{{ $day['condition'] }}</td>
+        </tr>
+      @empty
+        <tr>
+          <td colspan="4">No weather data available.</td>
+        </tr>
+      @endforelse
+    </tbody>
+  </table>
+</body>
+</html>
