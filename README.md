@@ -10,7 +10,7 @@ This Laravel project reads a static JSON file representing weekly weather data a
 
 ## 💻 Setup Instructions
 1. Clone the repo
-git clone https://github.com/YOUR_USERNAME/module11a-apidata.git
+git clone https://github.com/Kida2211/module11a-apidata.git
 2. cd module11a-apidata
 3. Run `composer install`
 4. Run `php artisan serve`
